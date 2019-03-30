@@ -45,6 +45,11 @@ namespace Newtonsoft.Json.Utilities
         {
             ValidationUtils.ArgumentNotNull(method, nameof(method));
 
+            return (object[] args) =>
+            {
+                return Activator.CreateInstance(method.DeclaringType, args);
+            };
+
             Type type = typeof(object);
 
             ParameterExpression argsParameterExpression = Expression.Parameter(typeof(object[]), "args");
@@ -60,6 +65,11 @@ namespace Newtonsoft.Json.Utilities
         public override MethodCall<T, object> CreateMethodCall<T>(MethodBase method)
         {
             ValidationUtils.ArgumentNotNull(method, nameof(method));
+
+            return (target, args) =>
+            {
+                return method.Invoke(target, args);
+            };
 
             Type type = typeof(object);
 
@@ -185,7 +195,7 @@ namespace Newtonsoft.Json.Utilities
             ValidationUtils.ArgumentNotNull(type, "type");
 
             // avoid error from expressions compiler because of abstract class
-            if (type.IsAbstract())
+            if (true /*type.IsAbstract()*/)
             {
                 return () => (T)Activator.CreateInstance(type);
             }
@@ -214,6 +224,11 @@ namespace Newtonsoft.Json.Utilities
         public override Func<T, object> CreateGet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
+
+            return t =>
+            {
+                return propertyInfo.GetValue(t, null);
+            };
 
             Type instanceType = typeof(T);
             Type resultType = typeof(object);
@@ -246,6 +261,8 @@ namespace Newtonsoft.Json.Utilities
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
 
+            return t => fieldInfo.GetValue(t);
+
             ParameterExpression sourceParameter = Expression.Parameter(typeof(T), "source");
 
             Expression fieldExpression;
@@ -269,6 +286,8 @@ namespace Newtonsoft.Json.Utilities
         public override Action<T, object> CreateSet<T>(FieldInfo fieldInfo)
         {
             ValidationUtils.ArgumentNotNull(fieldInfo, nameof(fieldInfo));
+
+            return (t, o) => fieldInfo.SetValue(t, o);
 
             // use reflection for structs
             // expression doesn't correctly set value
@@ -305,6 +324,8 @@ namespace Newtonsoft.Json.Utilities
         public override Action<T, object> CreateSet<T>(PropertyInfo propertyInfo)
         {
             ValidationUtils.ArgumentNotNull(propertyInfo, nameof(propertyInfo));
+
+            return (t, o) => propertyInfo.SetValue(t, o, null);
 
             // use reflection for structs
             // expression doesn't correctly set value
