@@ -574,7 +574,7 @@ namespace Newtonsoft.Json.Serialization
 
         // leave as class instead of struct
         // will be always return as an interface and boxed
-        internal class EnumerableDictionaryWrapper<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>
+        public class EnumerableDictionaryWrapper<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>
         {
             private readonly IEnumerable<KeyValuePair<TEnumeratorKey, TEnumeratorValue>> _e;
 
