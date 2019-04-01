@@ -211,6 +211,7 @@ namespace Newtonsoft.Json.Utilities
                 if (nonNullable.IsEnum())
                 {
                     Type nullableUnderlyingType = typeof(Nullable<>).MakeGenericType(Enum.GetUnderlyingType(nonNullable));
+                    TypeCollectorProxy.Collect(nullableUnderlyingType);
                     isEnum = true;
                     return GetTypeCode(nullableUnderlyingType);
                 }

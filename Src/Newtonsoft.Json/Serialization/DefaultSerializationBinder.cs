@@ -167,6 +167,7 @@ namespace Newtonsoft.Json.Serialization
                     }
 
                     type = genericTypeDef.MakeGenericType(genericTypeArguments.ToArray());
+                    TypeCollectorProxy.Collect(type);
                 }
             }
 
