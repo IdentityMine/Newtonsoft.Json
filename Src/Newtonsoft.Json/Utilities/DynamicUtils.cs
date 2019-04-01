@@ -103,6 +103,7 @@ namespace Newtonsoft.Json.Utilities
                 Type binderType = Type.GetType(BinderTypeName, true);
 
                 Type csharpArgumentInfoTypeEnumerableType = typeof(IEnumerable<>).MakeGenericType(csharpArgumentInfoType);
+                TypeCollectorProxy.Collect(csharpArgumentInfoTypeEnumerableType);
 
                 MethodInfo getMemberMethod = binderType.GetMethod("GetMember", new[] { csharpBinderFlagsType, typeof(string), typeof(Type), csharpArgumentInfoTypeEnumerableType });
                 _getMemberCall = JsonTypeReflector.ReflectionDelegateFactory.CreateMethodCall<object>(getMemberMethod);

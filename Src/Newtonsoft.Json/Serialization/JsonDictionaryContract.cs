@@ -126,6 +126,7 @@ namespace Newtonsoft.Json.Serialization
                 if (ReflectionUtils.IsGenericDefinition(UnderlyingType, typeof(IDictionary<,>)))
                 {
                     CreatedType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
+                    TypeCollectorProxy.Collect(CreatedType);
                 }
                 else if (underlyingType.IsGenericType())
                 {
@@ -153,6 +154,7 @@ namespace Newtonsoft.Json.Serialization
                 if (ReflectionUtils.IsGenericDefinition(UnderlyingType, typeof(IReadOnlyDictionary<,>)))
                 {
                     CreatedType = typeof(ReadOnlyDictionary<,>).MakeGenericType(keyType, valueType);
+                    TypeCollectorProxy.Collect(CreatedType);
                 }
 
                 IsReadOnlyOrFixedSize = true;
@@ -170,10 +172,15 @@ namespace Newtonsoft.Json.Serialization
 
             if (keyType != null && valueType != null)
             {
+                var collectionItemType = typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType);
+                var constructorArgType = typeof(IDictionary<,>).MakeGenericType(keyType, valueType);
+                TypeCollectorProxy.Collect(collectionItemType);
+                TypeCollectorProxy.Collect(constructorArgType);
+
                 _parameterizedConstructor = CollectionUtils.ResolveEnumerableCollectionConstructor(
                     CreatedType,
-                    typeof(KeyValuePair<,>).MakeGenericType(keyType, valueType),
-                    typeof(IDictionary<,>).MakeGenericType(keyType, valueType));
+                    collectionItemType,
+                    constructorArgType);
 
 #if HAVE_FSHARP_TYPES
                 if (!HasParameterizedCreatorInternal && underlyingType.Name == FSharpUtils.FSharpMapTypeName)
@@ -222,6 +229,7 @@ namespace Newtonsoft.Json.Serialization
             if (_genericWrapperCreator == null)
             {
                 _genericWrapperType = typeof(DictionaryWrapper<,>).MakeGenericType(DictionaryKeyType, DictionaryValueType);
+                TypeCollectorProxy.Collect(_genericWrapperType);
 
                 ConstructorInfo genericWrapperConstructor = _genericWrapperType.GetConstructor(new[] { _genericCollectionDefinitionType });
                 _genericWrapperCreator = JsonTypeReflector.ReflectionDelegateFactory.CreateParameterizedConstructor(genericWrapperConstructor);
@@ -235,6 +243,7 @@ namespace Newtonsoft.Json.Serialization
             if (_genericTemporaryDictionaryCreator == null)
             {
                 Type temporaryDictionaryType = typeof(Dictionary<,>).MakeGenericType(DictionaryKeyType ?? typeof(object), DictionaryValueType ?? typeof(object));
+                TypeCollectorProxy.Collect(temporaryDictionaryType);
 
                 _genericTemporaryDictionaryCreator = JsonTypeReflector.ReflectionDelegateFactory.CreateDefaultConstructor<object>(temporaryDictionaryType);
             }

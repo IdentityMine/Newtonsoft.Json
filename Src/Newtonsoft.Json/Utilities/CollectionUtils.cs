@@ -119,6 +119,7 @@ namespace Newtonsoft.Json.Utilities
         public static ConstructorInfo ResolveEnumerableCollectionConstructor(Type collectionType, Type collectionItemType)
         {
             Type genericConstructorArgument = typeof(IList<>).MakeGenericType(collectionItemType);
+            TypeCollectorProxy.Collect(genericConstructorArgument);
 
             return ResolveEnumerableCollectionConstructor(collectionType, collectionItemType, genericConstructorArgument);
         }
@@ -127,6 +128,7 @@ namespace Newtonsoft.Json.Utilities
         {
             Type genericEnumerable = typeof(IEnumerable<>).MakeGenericType(collectionItemType);
             ConstructorInfo match = null;
+            TypeCollectorProxy.Collect(genericEnumerable);
 
             foreach (ConstructorInfo constructor in collectionType.GetConstructors(BindingFlags.Public | BindingFlags.Instance))
             {

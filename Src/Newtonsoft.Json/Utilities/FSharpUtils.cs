@@ -178,6 +178,8 @@ namespace Newtonsoft.Json.Utilities
             ConstructorInfo ctor = genericMapType.GetConstructor(new[] { typeof(IEnumerable<Tuple<TKey, TValue>>) });
             ObjectConstructor<object> ctorDelegate = JsonTypeReflector.ReflectionDelegateFactory.CreateParameterizedConstructor(ctor);
 
+            TypeCollectorProxy.Collect(genericMapType);
+
             ObjectConstructor<object> creator = args =>
             {
                 // convert dictionary KeyValuePairs to Tuples

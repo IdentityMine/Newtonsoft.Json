@@ -505,6 +505,7 @@ namespace Newtonsoft.Json.Serialization
             if (ReflectionUtils.IsGenericDefinition(t, typeof(IDictionary<,>)))
             {
                 createdType = typeof(Dictionary<,>).MakeGenericType(keyType, valueType);
+                TypeCollectorProxy.Collect(createdType);
             }
             else
             {
@@ -555,6 +556,8 @@ namespace Newtonsoft.Json.Serialization
                 ConstructorInfo constructors = enumerableWrapper.GetConstructors().First();
                 ObjectConstructor<object> createEnumerableWrapper = JsonTypeReflector.ReflectionDelegateFactory.CreateParameterizedConstructor(constructors);
 
+                TypeCollectorProxy.Collect(enumerableWrapper);
+
                 ExtensionDataGetter extensionDataGetter = o =>
                 {
                     object dictionary = getExtensionDataDictionary(o);
@@ -574,7 +577,7 @@ namespace Newtonsoft.Json.Serialization
 
         // leave as class instead of struct
         // will be always return as an interface and boxed
-        internal class EnumerableDictionaryWrapper<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>
+        public class EnumerableDictionaryWrapper<TEnumeratorKey, TEnumeratorValue> : IEnumerable<KeyValuePair<object, object>>
         {
             private readonly IEnumerable<KeyValuePair<TEnumeratorKey, TEnumeratorValue>> _e;
 
@@ -1022,6 +1025,8 @@ namespace Newtonsoft.Json.Serialization
                     ? typeof(IEnumerable<>).MakeGenericType(typeof(KeyValuePair<,>).MakeGenericType(contract.DictionaryKeyType, contract.DictionaryValueType))
                     : typeof(IDictionary);
 
+                TypeCollectorProxy.Collect(expectedParameterType);
+
                 if (parameters.Length == 0)
                 {
                     contract.HasParameterizedCreator = false;
@@ -1059,6 +1064,8 @@ namespace Newtonsoft.Json.Serialization
                 Type expectedParameterType = (contract.CollectionItemType != null)
                     ? typeof(IEnumerable<>).MakeGenericType(contract.CollectionItemType)
                     : typeof(IEnumerable);
+
+                TypeCollectorProxy.Collect(expectedParameterType);
 
                 if (parameters.Length == 0)
                 {
