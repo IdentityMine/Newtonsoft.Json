@@ -1,0 +1,77 @@
+{
+  "runtimeTarget": {
+    "name": ".NETStandard,Version=v2.0/",
+    "signature": "e78d267ea424a23431e76caf9b182f2277055445"
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETStandard,Version=v2.0": {},
+    ".NETStandard,Version=v2.0/": {
+      "Newtonsoft.Json/11.0.1-beta2": {
+        "dependencies": {
+          "Microsoft.SourceLink.GitHub": "1.0.0-beta-63127-02",
+          "NETStandard.Library": "2.0.3"
+        },
+        "runtime": {
+          "Newtonsoft.Json.dll": {}
+        }
+      },
+      "Microsoft.Build.Tasks.Git/1.0.0-beta-63127-02": {},
+      "Microsoft.NETCore.Platforms/1.1.0": {},
+      "Microsoft.SourceLink.Common/1.0.0-beta-63127-02": {},
+      "Microsoft.SourceLink.GitHub/1.0.0-beta-63127-02": {
+        "dependencies": {
+          "Microsoft.Build.Tasks.Git": "1.0.0-beta-63127-02",
+          "Microsoft.SourceLink.Common": "1.0.0-beta-63127-02"
+        }
+      },
+      "NETStandard.Library/2.0.3": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "1.1.0"
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Newtonsoft.Json/11.0.1-beta2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Microsoft.Build.Tasks.Git/1.0.0-beta-63127-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SDC7lMeyUEBTWDrhvAwb1wK5ujIhI5cc2s9ugTwWyDfXC7H07/7lkc9DP1Q6kjv4qTL3eoWrd3HQuZmA7J4DJQ==",
+      "path": "microsoft.build.tasks.git/1.0.0-beta-63127-02",
+      "hashPath": "microsoft.build.tasks.git.1.0.0-beta-63127-02.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-l6Pzv/j8AA4wIyf3OggmSo9Ah2BnfixGGn37t6WsDsF0MgM/OxPeR/BKyplCJBF52GoSLlOT2kLkyZYe8J7rRA==",
+      "path": "microsoft.netcore.platforms/1.1.0",
+      "hashPath": "microsoft.netcore.platforms.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.Common/1.0.0-beta-63127-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-zLqiAhXjJSKPmFTvE9W0NtOpdy3E72VETj7qUkzK85nTgQiqlNWmMHr36SBcJfpo8sizJ72kFzi2alnI2/kqog==",
+      "path": "microsoft.sourcelink.common/1.0.0-beta-63127-02",
+      "hashPath": "microsoft.sourcelink.common.1.0.0-beta-63127-02.nupkg.sha512"
+    },
+    "Microsoft.SourceLink.GitHub/1.0.0-beta-63127-02": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KLR4K9dCNjyKyrzuj+gM5L/TDkQe3Eu0Amp118j6he5Mzjeb84tUBtNjLGrJtyOjqgGiShTrk/XT4g4luWzkCQ==",
+      "path": "microsoft.sourcelink.github/1.0.0-beta-63127-02",
+      "hashPath": "microsoft.sourcelink.github.1.0.0-beta-63127-02.nupkg.sha512"
+    },
+    "NETStandard.Library/2.0.3": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
+      "path": "netstandard.library/2.0.3",
+      "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    }
+  }
+}
